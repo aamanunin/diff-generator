@@ -2,13 +2,17 @@ install:
 	npm install
 
 run:
-	npx babel-node 'src/bin/gendiff.js'
+	npx babel-node 'src/bin/gendiff.js' __tests__/__fixtures__/testBefore.json __tests__/__fixtures__/testAfter.json
 
-publish:
-	npm publish
+build:
+	rm -rf dist
+	npm run build
+
+test:
+	npm test
 
 lint:
 	npx eslint .
 
-installg:
-	npm install -g gendiffaam
+publish:
+	npm publish

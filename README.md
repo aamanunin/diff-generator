@@ -3,4 +3,4 @@
 [![Build Status](https://travis-ci.org/aamanunin/project-lvl2-s451.svg?branch=master)](https://travis-ci.org/aamanunin/project-lvl2-s451)
 
 Install and run gendiff:
-[![asciicast](https://asciinema.org/a/3LjjDx8fp9zd3EtjBg31j92eZ.svg)](https://asciinema.org/a/3LjjDx8fp9zd3EtjBg31j92eZ)
+[![asciicast](https://asciinema.org/a/eHTaWLtTugTCJJJysKThoa5yy.svg)](https://asciinema.org/a/eHTaWLtTugTCJJJysKThoa5yy)

@@ -1,21 +1,26 @@
 {
   "name": "gendiffaam",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "The calculator differences the contents of files",
-  "main": "",
+  "main": "dist/index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
+    "test": "jest",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [
     "calculator differences"
   ],
   "author": "Aleksandr Maniunin",
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -23,10 +28,14 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0",
+    "babel-jest": "^24.0.0",
+    "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-babel": "^5.3.0"
+    "eslint-plugin-jest": "^22.4.1",
+    "jest": "^24.5.0",
+    "jest-cli": "^24.0.0"
   },
   "license": "ISC",
   "files": [
