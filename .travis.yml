@@ -18,8 +18,3 @@ script:
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT 
-
-addons:
-  code_climate:
-    repo_token:
-      secure: "0515ee483aeecc085cda412a1a4d8aeb11b25e9509a3bb0851c69ce1da908101"
