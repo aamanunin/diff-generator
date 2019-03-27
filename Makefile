@@ -16,3 +16,6 @@ lint:
 
 publish:
 	npm publish
+
+test-coverage:
+	npm test -- --coverage
