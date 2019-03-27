@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parsers from './parsers';
 
 const getContent = pathFile => fs.readFileSync(path.resolve(path.normalize(pathFile)), 'utf8');
+const getExtension = pathFile => path.extname(path.resolve(path.normalize(pathFile)));
 
 const propertyActions = [
   {
@@ -45,8 +47,10 @@ const render = elements => `{\n${elements.join('\n')}\n}`;
 const genDiff = (pathToFile1, pathToFile2) => {
   const contentFile1 = getContent(pathToFile1);
   const contentFile2 = getContent(pathToFile2);
-  const dataFile1 = JSON.parse(contentFile1);
-  const dataFile2 = JSON.parse(contentFile2);
+  const extensionFile1 = getExtension(pathToFile1);
+  const extensionFile2 = getExtension(pathToFile2);
+  const dataFile1 = parsers(contentFile1, extensionFile1);
+  const dataFile2 = parsers(contentFile2, extensionFile2);
 
   const differences = getDifferences(dataFile1, dataFile2);
 
