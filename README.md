@@ -7,3 +7,6 @@ Install and run gendiff from .json files:
 
 Install and run gendiff from .yml files:
 [![asciicast](https://asciinema.org/a/qnyZvVqhecsdKEJ2QuzX9wz87.svg)](https://asciinema.org/a/qnyZvVqhecsdKEJ2QuzX9wz87)
+
+Install and run gendiff from .ini files:
+[![asciicast](https://asciinema.org/a/JL6eEXeRtcllXGCEk3gL52kUz.svg)](https://asciinema.org/a/JL6eEXeRtcllXGCEk3gL52kUz)
