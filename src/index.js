@@ -31,29 +31,31 @@ const propertyActions = [
 const getPropertyAction = (data1, data2, key) => propertyActions
   .find(({ check }) => check(data1, data2, key));
 
-const getDifferences = (data1 = {}, data2 = {}) => {
+const buildAst = (data1 = {}, data2 = {}) => {
   const dataKeys = _.union(Object.keys(data1), Object.keys(data2));
   return dataKeys.reduce((acc, key) => {
     const { process } = getPropertyAction(data1, data2, key);
-    return [...acc, process(data1, data2, key)];
+    const value = process(data1, data2, key);
+    return [...acc, value];
   }, []);
 };
 
 const render = elements => `{\n${_.flatten(elements).join('\n')}\n}`;
 
-const genDiff = (path1, path2) => {
-  const pathToFile1 = path.resolve(path1);
-  const pathToFile2 = path.resolve(path2);
-  const contentFile1 = fs.readFileSync(pathToFile1, 'utf8');
-  const contentFile2 = fs.readFileSync(pathToFile2, 'utf8');
-  const extensionFile1 = path.extname(pathToFile1);
-  const extensionFile2 = path.extname(pathToFile2);
-  const dataFile1 = parse(contentFile1, extensionFile1);
-  const dataFile2 = parse(contentFile2, extensionFile2);
+const getData = (pathToFile) => {
+  const absolutePath = path.resolve(pathToFile);
+  const contentFile = fs.readFileSync(absolutePath, 'utf8');
+  const extensionFile = path.extname(absolutePath);
+  const data = parse(contentFile, extensionFile);
 
-  const differences = getDifferences(dataFile1, dataFile2);
-
-  return render(differences);
+  return data;
 };
 
-export default genDiff;
+export default (pathToFile1, pathToFile2) => {
+  const data1 = getData(pathToFile1);
+  const data2 = getData(pathToFile2);
+
+  const ast = buildAst(data1, data2);
+
+  return render(ast);
+};
