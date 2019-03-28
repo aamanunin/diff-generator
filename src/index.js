@@ -3,6 +3,15 @@ import path from 'path';
 import _ from 'lodash';
 import parse from './parsers';
 
+const getData = (pathToFile) => {
+  const absolutePath = path.resolve(pathToFile);
+  const contentFile = fs.readFileSync(absolutePath, 'utf8');
+  const extensionFile = path.extname(absolutePath);
+  const data = parse(contentFile, extensionFile);
+
+  return data;
+};
+
 const propertyActions = [
   {
     name: 'not changed',
@@ -41,15 +50,6 @@ const buildAst = (data1 = {}, data2 = {}) => {
 };
 
 const render = elements => `{\n${_.flatten(elements).join('\n')}\n}`;
-
-const getData = (pathToFile) => {
-  const absolutePath = path.resolve(pathToFile);
-  const contentFile = fs.readFileSync(absolutePath, 'utf8');
-  const extensionFile = path.extname(absolutePath);
-  const data = parse(contentFile, extensionFile);
-
-  return data;
-};
 
 export default (pathToFile1, pathToFile2) => {
   const data1 = getData(pathToFile1);
