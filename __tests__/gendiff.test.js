@@ -13,11 +13,15 @@ describe('genDiff', () => {
   const pathToJSONTree2 = '__tests__/__fixtures__/testAfterTree.json';
   const pathToResult = '__tests__/__fixtures__/result';
   const pathToResultTree = '__tests__/__fixtures__/resultTree';
+  const pathToIniTree1 = '__tests__/__fixtures__/testBeforeTree.ini';
+  const pathToIniTree2 = '__tests__/__fixtures__/testAfterTree.ini';
+
   test.each([
     [pathToJSON1, pathToJSON2, pathToResult],
     [pathToYml1, pathTOYml2, pathToResult],
     [pathToIni1, pathToIni2, pathToResult],
     [pathToJSONTree1, pathToJSONTree2, pathToResultTree],
+    [pathToIniTree1, pathToIniTree2, pathToResultTree],
   ])(
     '%s and %s',
     (path1, path2, path3) => {
