@@ -10,3 +10,6 @@ Install and run gendiff from .yml files:
 
 Install and run gendiff from .ini files:
 [![asciicast](https://asciinema.org/a/JL6eEXeRtcllXGCEk3gL52kUz.svg)](https://asciinema.org/a/JL6eEXeRtcllXGCEk3gL52kUz)
+
+Install and run gendiff from .ini files with nested structures:
+[![asciicast](https://asciinema.org/a/WkMSN34cxO3BDWkSbMAO5P64Z.svg)](https://asciinema.org/a/WkMSN34cxO3BDWkSbMAO5P64Z)
