@@ -16,29 +16,29 @@ const propertyActions = [
   {
     type: 'parent',
     check: (data1, data2, key) => (data1[key] instanceof Object && data2[key] instanceof Object),
-    process: (value1, value2, func) => func(value1, value2),
+    process: (value1, value2, func) => ({ children: func(value1, value2) }),
   },
   {
     type: 'notChanged',
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key)
       && (data1[key] === data2[key])),
-    process: value1 => value1,
+    process: value1 => ({ value: value1 }),
   },
   {
     type: 'changed',
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key)
       && (data1[key] !== data2[key])),
-    process: (value1, value2) => ({ before: value1, after: value2 }),
+    process: (value1, value2) => ({ valueBefore: value1, valueAfter: value2 }),
   },
   {
     type: 'deleted',
     check: (data1, data2, key) => (_.has(data1, key) && !_.has(data2, key)),
-    process: value1 => value1,
+    process: value1 => ({ value: value1 }),
   },
   {
     type: 'added',
     check: (data1, data2, key) => (!_.has(data1, key) && _.has(data2, key)),
-    process: (value1, value2) => value2,
+    process: (value1, value2) => ({ value: value2 }),
   },
 ];
 
@@ -51,9 +51,8 @@ const buildAst = (data1 = {}, data2 = {}) => {
   return dataKeys.map((key) => {
     const { type, process } = getPropertyAction(data1, data2, key);
     const value = process(data1[key], data2[key], buildAst);
-    const valueOrChildren = () => ((type === 'parent') ? 'children' : 'value');
 
-    return { key, type, [valueOrChildren()]: value };
+    return { key, type, ...value };
   });
 };
 
@@ -64,18 +63,16 @@ const stringify = (data, depth) => {
 };
 
 
-const typeActions = {
+const actions = {
   parent: (difference, depth, func) => `${' '.repeat(depth * 4)}${difference.key}: {\n${func(difference.children, depth + 1)}\n${' '.repeat(depth * 4)}}`,
   notChanged: (difference, depth) => `${' '.repeat(depth * 4)}${difference.key}: ${stringify(difference.value, depth)}`,
-  changed: (difference, depth) => `${' '.repeat(depth * 4 - 2)}- ${difference.key}: ${stringify(difference.value.before, depth)}\n${' '.repeat(depth * 4 - 2)}+ ${difference.key}: ${stringify(difference.value.after, depth)}`,
+  changed: (difference, depth) => [`${' '.repeat(depth * 4 - 2)}- ${difference.key}: ${stringify(difference.valueBefore, depth)}`, `${' '.repeat(depth * 4 - 2)}+ ${difference.key}: ${stringify(difference.valueAfter, depth)}`],
   deleted: (difference, depth) => `${' '.repeat(depth * 4 - 2)}- ${difference.key}: ${stringify(difference.value, depth)}`,
   added: (difference, depth) => `${' '.repeat(depth * 4 - 2)}+ ${difference.key}: ${stringify(difference.value, depth)}`,
 };
 
-const action = (difference, depth, func) => typeActions[difference.type](difference, depth, func);
-
 const render = (collection) => {
-  const renderAst = (ast, depth = 1) => _.flatten(ast.map(difference => `${action(difference, depth, renderAst)}`)).join('\n');
+  const renderAst = (ast, depth = 1) => _.flatten(ast.map(difference => actions[difference.type](difference, depth, renderAst))).join('\n');
 
   return `{\n${renderAst(collection)}\n}`;
 };
