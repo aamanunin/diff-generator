@@ -1,6 +1,6 @@
 {
   "name": "gendiffaam",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "The calculator differences the contents of files",
   "main": "dist/index.js",
   "bin": {
