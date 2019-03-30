@@ -41,9 +41,37 @@ const plainRender = (collection) => {
   return renderAst(collection);
 };
 
+/*
+Начал делать вывод вручную, осталось немного, но вроде JSON.stringify лучше)
+const jsonStringify = (data) => {
+  if (!(data instanceof Object)) return data;
+  const keys = Object.keys(data);
+  return keys.map(key => `${key}${data[key]}`);
+};
+
+ const jsonActions = {
+  parent:
+    (difference, func) => `"type": ${difference.type}${difference.key}${func(difference.children)}`,
+  notChanged: difference => `${difference.type}${difference.key}${jsonStringify(difference.value)}`,
+  changed:
+    difference => [`${difference.key}${jsonStringify(difference.valueBefore)}`,
+       `${difference.key}${jsonStringify(difference.valueAfter)}`],
+  deleted: difference => `${difference.type}${difference.key}${jsonStringify(difference.value)}`,
+  added: difference => `${difference.type}${difference.key}${jsonStringify(difference.value)}`,
+};
+
+const jsonRender = (collection) => {
+  const renderAst = ast => _.flatten(ast
+    .map(difference => `{${jsonActions[difference.type](difference, renderAst)}}`));
+
+  return `[${renderAst(collection)}]`;
+};
+*/
+
 const formatActions = {
   standart: standartRender,
   plain: plainRender,
+  json: JSON.stringify,
 };
 
 const render = (collection, format) => formatActions[format](collection);

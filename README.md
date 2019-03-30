@@ -16,3 +16,6 @@ Install and run gendiff from .ini files with nested structures:
 
 Install and run gendiff with --format plain option from .ini files with nested structures:
 [![asciicast](https://asciinema.org/a/E5ZQdNw94IinQdM5szvMlRbCP.svg)](https://asciinema.org/a/E5ZQdNw94IinQdM5szvMlRbCP)
+
+Install and run gendiff with --format json option from .ini files with nested structures:
+[![asciicast](https://asciinema.org/a/YgT3xDB0muoYqqyphD2UWAadJ.svg)](https://asciinema.org/a/YgT3xDB0muoYqqyphD2UWAadJ)
