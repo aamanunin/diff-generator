@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
 import buildAst from './astBuilder';
-import render from './renders';
+import render from './renderers/renders';
 
 const getData = (pathToFile) => {
   const absolutePath = path.resolve(pathToFile);
